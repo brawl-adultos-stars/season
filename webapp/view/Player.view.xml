@@ -5,14 +5,14 @@
         xmlns="sap.m">
     <Page
             id="page"
-            title="{i18n>team_season_end}: {path: 'season>/end', type: 'sap.ui.model.type.DateTime'} ({season>/delta})"
+            title="{i18n>club_season_end}: {path: 'season>/end', type: 'sap.ui.model.type.DateTime'} ({season>/delta})"
             showNavButton="true"
             navButtonPress=".onBack">
         <content>
             <ObjectHeader
                     intro="{player>/tag}"
                     title="{player>/name}"
-                    number="{player>/trophies}"
+                    number="{ path: 'player>/trophies', type: 'sap.ui.model.odata.type.Int32'}"
                     numberUnit="{i18n>player_trophies}">
                 <attributes></attributes>
                 <statuses>
@@ -60,9 +60,8 @@
                         <Text text="{i18n>player_col_season_end}" />
                     </Column>
                     <Column
-                            demandPopin="true"
-                            popinDisplay="Inline"
-                            minScreenWidth="Tablet">
+                            demandPopin="false"
+                            minScreenWidth="Phone">
                         <Text text="{i18n>player_col_difference}" />
                     </Column>
                 </columns>
@@ -70,7 +69,7 @@
                     <ColumnListItem>
                         <cells>
                             <Image
-                                    height="5em"
+                                    height="4em"
                                     src="{
                                         model: 'player',
                                         path: 'name',

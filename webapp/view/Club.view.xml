@@ -1,0 +1,37 @@
+<mvc:View
+        controllerName="brawl.adultos.season.controller.Club"
+        xmlns:mvc="sap.ui.core.mvc"
+        displayBlock="true"
+        xmlns="sap.m">
+    <Page
+            id="page"
+            title="{i18n>club_season_end}: {path: 'season>/end', type: 'sap.ui.model.type.DateTime'} ({season>/delta})"
+            showNavButton="true"
+            navButtonPress=".onBack">
+        <content>
+            <ObjectHeader
+                    intro="{club>/tag}"
+                    title="{club>/name}"
+                    number="{ path: 'club>/trophies', type: 'sap.ui.model.odata.type.Int32'}"
+                    numberUnit="{i18n>player_trophies}">
+                <attributes>
+                    <ObjectAttribute
+                            title="{i18n>club_member_count}"
+                            text="{club>/memberCount} / 30" />
+                </attributes>
+            </ObjectHeader>
+            <List
+                    items="{club>/members}"
+                    mode="SingleSelectMaster"
+                    itemPress=".onItemPress">
+                <items>
+                    <StandardListItem
+                            type="Navigation"
+                            title="{club>name}"
+                            description="{club>tag}"
+                            info="{ path: 'club>trophies', type: 'sap.ui.model.odata.type.Int32'}" />
+                </items>
+            </List>
+        </content>
+    </Page>
+</mvc:View>

@@ -5,7 +5,7 @@
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
-      "version": "0.0.1"
+      "version": "1.1.0"
     },
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
@@ -75,10 +75,17 @@
       },
       "routes": [
         {
-          "name": "team",
+          "name": "clubs",
           "pattern": "",
           "target": [
-            "Team"
+            "Clubs"
+          ]
+        },
+        {
+          "name": "club",
+          "pattern": "club/{tag}",
+          "target": [
+            "Club"
           ]
         },
         {
@@ -90,13 +97,20 @@
         }
       ],
       "targets": {
-        "Team": {
-          "viewId": "Team",
-          "viewName": "Team"
+        "Clubs": {
+          "viewId": "Clubs",
+          "viewName": "Clubs",
+          "viewLevel": 0
+        },
+        "Club": {
+          "viewId": "Club",
+          "viewName": "Club",
+          "viewLevel": 1
         },
         "Player": {
           "viewId": "Player",
-          "viewName": "Player"
+          "viewName": "Player",
+          "viewLevel": 2
         }
       }
     }

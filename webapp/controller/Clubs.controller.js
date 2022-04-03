@@ -8,31 +8,31 @@ sap.ui.define([
     function (Controller, JSONModel) {
         "use strict";
 
-        return Controller.extend("brawl.adultos.season.controller.Team", {
+        return Controller.extend("brawl.adultos.season.controller.Clubs", {
 
-            _oTeamModel: null,
+            _oClubModel: null,
 
             _Router: null,
 
             onInit: function () {
                 this._oRouter = this.getOwnerComponent().getRouter();
 
-                this._oTeamModel = new JSONModel();
+                this._oClubsModel = new JSONModel();
 
-                let sUrl = "https://gcp-brawl-stars-proxy-rytwssggra-uc.a.run.app/club"
-                this._oTeamModel.loadData(sUrl);
+                let sUrl = "https://gcp-brawl-stars-proxy-rytwssggra-uc.a.run.app/clubs"
+                this._oClubsModel.loadData(sUrl);
 
-                this.getView().setModel(this._oTeamModel, "team");
+                this.getView().setModel(this._oClubsModel, "clubs");
             },
 
 
             onItemPress: function (oEvent) {
                 let oParameters = oEvent.getParameters();
                 let oItem = oParameters.listItem;
-                let oContext = oItem.getBindingContext("team");
-                let sPlayerTag = oContext.getProperty("tag");
-                this._oRouter.navTo("player", {
-                    tag: sPlayerTag
+                let oContext = oItem.getBindingContext("clubs");
+                let sClubTag = oContext.getProperty("tag");
+                this._oRouter.navTo("club", {
+                    tag: sClubTag
                 })
 
 

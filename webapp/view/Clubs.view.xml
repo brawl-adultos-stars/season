@@ -1,0 +1,24 @@
+<mvc:View
+        controllerName="brawl.adultos.season.controller.Clubs"
+        xmlns:mvc="sap.ui.core.mvc"
+        displayBlock="true"
+        xmlns="sap.m">
+    <Page
+            id="page"
+            title="{i18n>club_season_end}: {path: 'season>/end', type: 'sap.ui.model.type.DateTime'} ({season>/delta})">
+        <content>
+            <List
+                    items="{clubs>/clubs}"
+                    mode="SingleSelectMaster"
+                    itemPress=".onItemPress">
+                <items>
+                    <StandardListItem
+                            type="Navigation"
+                            title="{clubs>name}"
+                            description="{clubs>tag}"
+                            info="{ path: 'clubs>trophies', type: 'sap.ui.model.odata.type.Int32'} {i18n>general_trophies}" />
+                </items>
+            </List>
+        </content>
+    </Page>
+</mvc:View>

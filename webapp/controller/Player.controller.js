@@ -19,11 +19,16 @@ sap.ui.define([
                 this._oRouter.getRoute("player").attachPatternMatched(this.onPatternMatched, this);
 
                 this._oPlayerModel = new JSONModel();
-
+                this.getView().setModel(this._oPlayerModel, "player");
             },
 
             onBack: function () {
-                this._oRouter.navTo("team", true)
+                let sClubTag = this._oPlayerModel.getProperty("/club/tag");
+
+                this._oRouter.navTo("club", {
+                    tag: sClubTag
+                },
+                    true)
             },
 
             onPatternMatched: function (oEvent) {
@@ -32,11 +37,10 @@ sap.ui.define([
                 let sPlayerTag = mArguments.tag;
                 let sPlayerSanitized = sPlayerTag.replace(/\#/g, '');
 
-
                 let sUrl = `https://gcp-brawl-stars-proxy-rytwssggra-uc.a.run.app/player?tag=${sPlayerSanitized}`;
                 this._oPlayerModel.loadData(sUrl);
 
-                this.getView().setModel(this._oPlayerModel, "player");
+
             },
 
             formatBrawlerImage: function (sBrawlerName) {
