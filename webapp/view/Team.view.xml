@@ -5,8 +5,19 @@
         xmlns="sap.m">
     <Page
             id="page"
-            title="{i18n>team_title}">
+            title="{i18n>team_season_end}: {path: 'season>/end', type: 'sap.ui.model.type.DateTime'} ({season>/delta})">
         <content>
+            <ObjectHeader
+                    intro="{team>/tag}"
+                    title="{team>/name}"
+                    number="{team>/trophies}"
+                    numberUnit="{i18n>player_trophies}">
+                <attributes>
+                    <ObjectAttribute
+                            title="{i18n>team_member_count}"
+                            text="{team>/memberCount} / 30" />
+                </attributes>
+            </ObjectHeader>
             <List
                     items="{team>/members}"
                     mode="SingleSelectMaster"
@@ -21,5 +32,4 @@
             </List>
         </content>
     </Page>
-
 </mvc:View>

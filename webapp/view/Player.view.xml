@@ -5,7 +5,7 @@
         xmlns="sap.m">
     <Page
             id="page"
-            title="{i18n>player_title}"
+            title="{i18n>team_season_end}: {path: 'season>/end', type: 'sap.ui.model.type.DateTime'} ({season>/delta})"
             showNavButton="true"
             navButtonPress=".onBack">
         <content>
@@ -16,12 +16,12 @@
                     numberUnit="{i18n>player_trophies}">
                 <attributes></attributes>
                 <statuses>
-                    <ObjectStatus
+                    <!-- <ObjectStatus
                             title="{i18n>player_season_end}"
                             text="?" />
                     <ObjectStatus
                             title="{i18n>player_trophies_difference}"
-                            text="?" />
+                            text="?" /> -->
                 </statuses>
             </ObjectHeader>
             <Table
@@ -59,6 +59,12 @@
                             minScreenWidth="Tablet">
                         <Text text="{i18n>player_col_season_end}" />
                     </Column>
+                    <Column
+                            demandPopin="true"
+                            popinDisplay="Inline"
+                            minScreenWidth="Tablet">
+                        <Text text="{i18n>player_col_difference}" />
+                    </Column>
                 </columns>
                 <items>
                     <ColumnListItem>
@@ -73,7 +79,26 @@
                             <ObjectIdentifier title="{player>name}" />
                             <Text text="{player>power}" />
                             <Text text="{player>rank}" />
-                            <Text text="{player>trophies}" />
+                            <ObjectNumber
+                                    number="{player>trophies}"
+                                    state="Information" />
+                            <ObjectNumber number="{     
+                                model: 'player',
+                                path: 'trophies',
+                                formatter: '.formatSeasonEnd'
+                            }" />
+                            <ObjectNumber
+                                    number="{     
+                                model: 'player',
+                                path: 'trophies',
+                                formatter: '.formatDifference'
+                            }"
+                                    state="{     
+                                        model: 'player',
+                                        path: 'trophies',
+                                        formatter: '.formatDifferenceState'
+                                    }" />
+
                         </cells>
                     </ColumnListItem>
 
@@ -81,9 +106,9 @@
             </Table>
         </content>
         <footer>
-            <Toolbar>
+            <!-- <Toolbar>
                 <ToolbarSpacer />
-            </Toolbar>
+            </Toolbar> -->
         </footer>
     </Page>
 

@@ -56,6 +56,46 @@ sap.ui.define([
                 sProperCase = sProperCase.replace(/\.-/g, '.');
 
                 return `https://cdn.brawlify.com/brawler/${sProperCase}.png`;
+            },
+
+            formatSeasonEnd: function (sTrophies) {
+                let iTrophies = +sTrophies;
+                if (iTrophies <= 500) {
+                    return iTrophies;
+                }
+
+                let iMod = iTrophies % 25;
+                return iTrophies - iMod - 1;
+            },
+
+            formatDifference: function (sTrophies) {
+                let iTrophies = +sTrophies;
+                if (iTrophies <= 500) {
+                    return 0;
+                }
+
+                let iDifference = ((iTrophies % 25) + 1) * -1;
+                return iDifference;
+            },
+
+            formatDifferenceState: function (sTrophies) {
+                let iTrophies = +sTrophies;
+                if (iTrophies <= 500) {
+                    return "Success";
+                }
+
+                let iDifference = ((iTrophies % 25) + 1);
+
+                if (iDifference <= 8) {
+                    return "Success"
+                }
+                if (iDifference <= 16) {
+                    return "Warning"
+                }
+                return "Error"
+
             }
+
+
         });
     });
