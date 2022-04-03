@@ -1,0 +1,90 @@
+<mvc:View
+        controllerName="brawl.adultos.season.controller.Player"
+        xmlns:mvc="sap.ui.core.mvc"
+        displayBlock="true"
+        xmlns="sap.m">
+    <Page
+            id="page"
+            title="{i18n>player_title}"
+            showNavButton="true"
+            navButtonPress=".onBack">
+        <content>
+            <ObjectHeader
+                    intro="{player>/tag}"
+                    title="{player>/name}"
+                    number="{player>/trophies}"
+                    numberUnit="{i18n>player_trophies}">
+                <attributes></attributes>
+                <statuses>
+                    <ObjectStatus
+                            title="{i18n>player_season_end}"
+                            text="?" />
+                    <ObjectStatus
+                            title="{i18n>player_trophies_difference}"
+                            text="?" />
+                </statuses>
+            </ObjectHeader>
+            <Table
+                    items="{player>/brawlers}"
+                    alternateRowColors="true"
+                    fixedLayout="false">
+                <columns>
+                    <Column demandPopin="false">
+                        <Text text="{i18n>player_col_brawler}" />
+                    </Column>
+                    <Column demandPopin="false">
+                        <Text text="{i18n>player_col_brawler_name}" />
+                    </Column>
+                    <Column
+                            demandPopin="true"
+                            popinDisplay="Inline"
+                            minScreenWidth="Tablet">
+                        <Text text="{i18n>player_col_power}" />
+                    </Column>
+                    <Column
+                            demandPopin="true"
+                            popinDisplay="Inline"
+                            minScreenWidth="Tablet">
+                        <Text text="{i18n>player_col_rank}" />
+                    </Column>
+                    <Column
+                            demandPopin="true"
+                            popinDisplay="Inline"
+                            minScreenWidth="Tablet">
+                        <Text text="{i18n>player_col_trophies}" />
+                    </Column>
+                    <Column
+                            demandPopin="true"
+                            popinDisplay="Inline"
+                            minScreenWidth="Tablet">
+                        <Text text="{i18n>player_col_season_end}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Image
+                                    height="5em"
+                                    src="{
+                                        model: 'player',
+                                        path: 'name',
+                                        formatter: '.formatBrawlerImage'
+                                    }" />
+                            <ObjectIdentifier title="{player>name}" />
+                            <Text text="{player>power}" />
+                            <Text text="{player>rank}" />
+                            <Text text="{player>trophies}" />
+                        </cells>
+                    </ColumnListItem>
+
+                </items>
+            </Table>
+        </content>
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer />
+            </Toolbar>
+        </footer>
+    </Page>
+
+</mvc:View>

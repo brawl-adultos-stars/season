@@ -1,0 +1,25 @@
+<mvc:View
+        controllerName="brawl.adultos.season.controller.Team"
+        xmlns:mvc="sap.ui.core.mvc"
+        displayBlock="true"
+        xmlns="sap.m">
+    <Page
+            id="page"
+            title="{i18n>team_title}">
+        <content>
+            <List
+                    items="{team>/members}"
+                    mode="SingleSelectMaster"
+                    itemPress=".onItemPress">
+                <items>
+                    <StandardListItem
+                            type="Navigation"
+                            title="{team>name}"
+                            description="{team>tag}"
+                            info="{team>trophies}" />
+                </items>
+            </List>
+        </content>
+    </Page>
+
+</mvc:View>
