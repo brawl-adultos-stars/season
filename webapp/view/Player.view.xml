@@ -5,6 +5,8 @@
         xmlns="sap.m">
     <Page
             id="page"
+            busy="{view>/busy}"
+            busyIndicatorDelay="0"
             title="{i18n>club_season_end}: {path: 'season>/end', type: 'sap.ui.model.type.DateTime'} ({season>/delta})"
             showNavButton="true"
             navButtonPress=".onBack">
@@ -16,12 +18,12 @@
                     numberUnit="{i18n>player_trophies}">
                 <attributes></attributes>
                 <statuses>
-                    <!-- <ObjectStatus
+                    <ObjectStatus
                             title="{i18n>player_season_end}"
-                            text="?" />
+                            text="{ path: 'player>/trophiesAfterSeason', type: 'sap.ui.model.odata.type.Int32'}" />
                     <ObjectStatus
                             title="{i18n>player_trophies_difference}"
-                            text="?" /> -->
+                            text="{ path: 'player>/trophiesDifferenceAfterSeason', type: 'sap.ui.model.odata.type.Int32'}" />
                 </statuses>
             </ObjectHeader>
             <Table
@@ -105,9 +107,12 @@
             </Table>
         </content>
         <footer>
-            <!-- <Toolbar>
+            <Toolbar>
                 <ToolbarSpacer />
-            </Toolbar> -->
+                <Button
+                        icon="sap-icon://refresh"
+                        press=".onRefresh" />
+            </Toolbar>
         </footer>
     </Page>
 

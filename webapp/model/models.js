@@ -17,7 +17,7 @@ sap.ui.define([
 
                 var oData = {
                     now: new Date(),
-                    end: new Date(2022, 3, 4, 5, 0, 0),
+                    end: new Date(2022, 4, 1, 5, 0, 0),
                 };
 
                 function timeDiffCalc(dateFuture, dateNow) {

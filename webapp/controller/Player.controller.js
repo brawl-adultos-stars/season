@@ -11,6 +11,7 @@ sap.ui.define([
         return Controller.extend("brawl.adultos.season.controller.Player", {
 
             _oPlayerModel: null,
+            _sPlayerSanitized: null,
 
             _Router: null,
 
@@ -20,6 +21,12 @@ sap.ui.define([
 
                 this._oPlayerModel = new JSONModel();
                 this.getView().setModel(this._oPlayerModel, "player");
+
+
+                this._oViewModel = new JSONModel({
+                    busy: false
+                });
+                this.getView().setModel(this._oViewModel, "view");
             },
 
             onBack: function () {
@@ -35,12 +42,25 @@ sap.ui.define([
                 let oParameters = oEvent.getParameters();
                 let mArguments = oParameters.arguments;
                 let sPlayerTag = mArguments.tag;
-                let sPlayerSanitized = sPlayerTag.replace(/\#/g, '');
+                this._sPlayerSanitized = sPlayerTag.replace(/\#/g, '');
 
-                let sUrl = `https://gcp-brawl-stars-proxy-rytwssggra-uc.a.run.app/player?tag=${sPlayerSanitized}`;
+                this._refresh();
+
+            },
+
+            onRefresh: function (oEvent) {
+                this._refresh();
+            },
+
+            _refresh: function () {
+                this._oViewModel.setProperty("/busy", true);
+                let sUrl = `https://gcp-brawl-stars-proxy-rytwssggra-uc.a.run.app/player?tag=${this._sPlayerSanitized}`;
+
+                const fnRequestCompleted = (oEvent) => {
+                    this._oViewModel.setProperty("/busy", false);
+                }
+                this._oPlayerModel.attachEventOnce("requestCompleted", fnRequestCompleted, this);
                 this._oPlayerModel.loadData(sUrl);
-
-
             },
 
             formatBrawlerImage: function (sBrawlerName) {
