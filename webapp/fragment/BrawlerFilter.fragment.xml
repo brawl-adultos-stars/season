@@ -1,0 +1,43 @@
+<core:FragmentDefinition
+                xmlns="sap.m"
+                xmlns:core="sap.ui.core">
+        <ViewSettingsDialog confirm="onFilterConfirm">
+                <filterItems>
+
+                        <ViewSettingsCustomItem
+                                        id="custom-item-power"
+                                        text="{i18n>player_col_power}"
+                                        key="myFilter">
+                                <customControl>
+                                        <RangeSlider
+                                                        min="1"
+                                                        max="11"
+                                                        step="1"
+                                                        enableTickmarks="true"
+                                                        showAdvancedTooltip="true" />
+                                </customControl>
+                        </ViewSettingsCustomItem>
+
+                        <ViewSettingsFilterItem
+                                        text="{i18n>player_col_difference}"
+                                        key="trophiesDifferenceAfterSeason"
+                                        multiSelect="true">
+                                <items>
+                                        <ViewSettingsItem
+                                                        key="difference_zero"
+                                                        text="{i18n>brawler_filter_difference_option_zero}" />
+                                        <ViewSettingsItem
+                                                        key="difference_green"
+                                                        text="{i18n>brawler_filter_difference_option_green}" />
+                                        <ViewSettingsItem
+                                                        key="difference_yellow"
+                                                        text="{i18n>brawler_filter_difference_option_yellow}" />
+                                        <ViewSettingsItem
+                                                        key="difference_red"
+                                                        text="{i18n>brawler_filter_difference_option_red}" />
+                                </items>
+                        </ViewSettingsFilterItem>
+
+                </filterItems>
+        </ViewSettingsDialog>
+</core:FragmentDefinition>

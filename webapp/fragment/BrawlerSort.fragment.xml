@@ -1,0 +1,28 @@
+<core:FragmentDefinition
+        xmlns="sap.m"
+        xmlns:core="sap.ui.core">
+    <ViewSettingsDialog confirm="onSortConfirm">
+        <sortItems>
+            <ViewSettingsItem
+                    key="power"
+                    text="{i18n>player_col_power}"
+                    selected="false" />
+            <ViewSettingsItem
+                    key="rank"
+                    text="{i18n>player_col_rank}"
+                    selected="false" />
+            <ViewSettingsItem
+                    key="trophies"
+                    text="{i18n>player_col_trophies}"
+                    selected="false" />
+            <ViewSettingsItem
+                    key="trophiesAfterSeason"
+                    text="{i18n>player_col_season_end}"
+                    selected="false" />
+            <ViewSettingsItem
+                    key="trophiesDifferenceAfterSeason"
+                    text="{i18n>player_col_difference}"
+                    selected="true" />
+        </sortItems>
+    </ViewSettingsDialog>
+</core:FragmentDefinition>

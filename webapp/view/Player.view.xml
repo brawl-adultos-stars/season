@@ -27,9 +27,44 @@
                 </statuses>
             </ObjectHeader>
             <Table
-                    items="{player>/brawlers}"
+                    id="table"
+                    items="{
+                        model: 'player',
+                        path: '/brawlers',
+                        sorter: { 
+                            path: 'trophiesDifferenceAfterSeason', 
+                            descending: false
+                        } 
+                    }"
                     alternateRowColors="true"
                     fixedLayout="false">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title
+                                text="Brawlers"
+                                level="H2" />
+                        <ToolbarSpacer />
+                        <Button
+                                tooltip="{i18n>general_sort}"
+                                icon="sap-icon://sort"
+                                press=".onSort" />
+                        <!-- <Button
+                                tooltip="{i18n>general_filter}"
+                                icon="sap-icon://filter"
+                                press=".onFilter" /> -->
+                        <!-- <Button
+                                tooltip="{i18n>general_group}"
+                                icon="sap-icon://group-2"
+                                press=".onGroup" /> -->
+                    </OverflowToolbar>
+                </headerToolbar>
+                <infoToolbar>
+                    <OverflowToolbar
+                            id="vsdFilterBar"
+                            visible="false">
+                        <Text id="vsdFilterLabel" />
+                    </OverflowToolbar>
+                </infoToolbar>
                 <columns>
                     <Column demandPopin="false">
                         <Text text="{i18n>player_col_brawler}" />
@@ -85,18 +120,16 @@
                                     state="Information" />
                             <ObjectNumber number="{     
                                 model: 'player',
-                                path: 'trophies',
-                                formatter: '.formatSeasonEnd'
+                                path: 'trophiesAfterSeason'
                             }" />
                             <ObjectNumber
                                     number="{     
                                 model: 'player',
-                                path: 'trophies',
-                                formatter: '.formatDifference'
+                                path: 'trophiesDifferenceAfterSeason'
                             }"
                                     state="{     
                                         model: 'player',
-                                        path: 'trophies',
+                                        path: 'trophiesDifferenceAfterSeason',
                                         formatter: '.formatDifferenceState'
                                     }" />
 
@@ -108,6 +141,7 @@
         </content>
         <footer>
             <Toolbar>
+
                 <ToolbarSpacer />
                 <Button
                         icon="sap-icon://refresh"

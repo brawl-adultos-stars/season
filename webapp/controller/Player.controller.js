@@ -1,19 +1,36 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/model/json/JSONModel"
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/core/Fragment",
+    "sap/ui/model/Sorter",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator"
+
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel) {
+    function (
+        Controller,
+        JSONModel,
+        Fragment,
+        Sorter,
+        Filter,
+        FilterOperator
+    ) {
         "use strict";
 
         return Controller.extend("brawl.adultos.season.controller.Player", {
+
+            _FRAGMENT_BRAWLER_SORT: "brawl.adultos.season.fragment.BrawlerSort",
+            _FRAGMENT_BRAWLER_FILTER: "brawl.adultos.season.fragment.BrawlerFilter",
 
             _oPlayerModel: null,
             _sPlayerSanitized: null,
 
             _Router: null,
+
+            _mDialogs: {},
 
             onInit: function () {
                 this._oRouter = this.getOwnerComponent().getRouter();
@@ -48,8 +65,109 @@ sap.ui.define([
 
             },
 
+            /**
+            * Sort
+            */
+            onSort: function (oEvent) {
+                let oSource = oEvent.getSource();
+                let oParameters = oEvent.getParameters();
+
+                this._getViewSettingsDialog(this._FRAGMENT_BRAWLER_SORT)
+                    .then(function (oDialog) {
+                        oDialog.open();
+                    });
+
+            },
+
+            onSortConfirm: function (oEvent) {
+                let oSource = oEvent.getSource();
+                let oParameters = oEvent.getParameters();
+
+                let oTable = this.byId("table"),
+                    oBinding = oTable.getBinding("items"),
+                    sPath,
+                    bDescending,
+                    aSorters = [];
+
+                sPath = oParameters.sortItem.getKey();
+                bDescending = oParameters.sortDescending;
+                aSorters.push(new Sorter(sPath, bDescending));
+
+                oBinding.sort(aSorters);
+
+            },
+
+            /**
+             * Filter
+             */
+            onFilter: function (oEvent) {
+                let oSource = oEvent.getSource();
+                let oParameters = oEvent.getParameters();
+
+                this._getViewSettingsDialog(this._FRAGMENT_BRAWLER_FILTER)
+                    .then(function (oDialog) {
+                        oDialog.open();
+                    });
+            },
+
+            onFilterConfirm: function (oEvent) {
+                let oSource = oEvent.getSource();
+                let oParameters = oEvent.getParameters();
+
+                let oTable = this.byId("table"),
+                    oBinding = oTable.getBinding("items"),
+                    aFilters = [];
+
+                oParameters.filterItems.forEach(function (oItem) {
+                    let sPath = oItem.getKey(),
+                        sOperator = FilterOperator.EQ,
+                        sMin = 0,
+                        sMax = 11;
+
+                    let oFilter = new Filter(sPath, sOperator, sMin, sMax);
+                    aFilters.push(oFilter);
+                });
+
+
+                oBinding.filter(aFilters);
+
+                // update filter bar
+                // this.byId("vsdFilterBar").setVisible(aFilters.length > 0);
+                // this.byId("vsdFilterLabel").setText(mParams.filterString);
+            },
+
+            /**
+             * Group
+             */
+            onGroup: function (oEvent) {
+                let oSource = oEvent.getSource();
+                let oParameters = oEvent.getParameters();
+
+
+            },
+
+
+
             onRefresh: function (oEvent) {
                 this._refresh();
+            },
+
+            _getViewSettingsDialog: function (sDialogFragmentName) {
+                let oDialog = this._mDialogs[sDialogFragmentName];
+
+                if (!oDialog) {
+                    oDialog = Fragment.load({
+                        id: this.getView().getId(),
+                        name: sDialogFragmentName,
+                        controller: this
+                    }).then(function (oLoadedDialog) {
+                        this.getView().addDependent(oLoadedDialog);
+                        return oLoadedDialog;
+
+                    }.bind(this));
+                    this._mDialogs[sDialogFragmentName] = oDialog;
+                }
+                return oDialog;
             },
 
             _refresh: function () {
@@ -102,13 +220,8 @@ sap.ui.define([
                 return iDifference;
             },
 
-            formatDifferenceState: function (sTrophies) {
-                let iTrophies = +sTrophies;
-                if (iTrophies <= 500) {
-                    return "Success";
-                }
-
-                let iDifference = ((iTrophies % 25) + 1);
+            formatDifferenceState: function (sDifference) {
+                let iDifference = Math.abs(+sDifference);
 
                 if (iDifference <= 8) {
                     return "Success"

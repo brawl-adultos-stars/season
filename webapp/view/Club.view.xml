@@ -25,11 +25,16 @@
                     mode="SingleSelectMaster"
                     itemPress=".onItemPress">
                 <items>
-                    <StandardListItem
+                    <ObjectListItem
                             type="Navigation"
+                            intro="{club>ranking}"
                             title="{club>name}"
-                            description="{club>tag}"
-                            info="{ path: 'club>trophies', type: 'sap.ui.model.odata.type.Int32'}" />
+                            number="{ path: 'club>trophies', type: 'sap.ui.model.odata.type.Int32'}"
+                            numberUnit="{i18n>general_trophies}">
+                        <attributes>
+                            <ObjectAttribute text="{club>tag}" />
+                        </attributes>
+                    </ObjectListItem>
                 </items>
             </List>
         </content>
